@@ -40,8 +40,6 @@ function getMashedPotatoesInstructions() {
 
 getMashedPotatoesInstructions()
 
-
-
 // Iteration 2 - using promises
 function getSteakInstructions() {
   function recursivelyGetInstruction(i) {
@@ -58,7 +56,19 @@ function getSteakInstructions() {
 getSteakInstructions();
 
 // Iteration 3 using async/await
-// ...
+async function makeBroccoli() {
+  let i = 0;
+  try {
+    while (true) {
+      let step = await obtainInstruction('broccoli', i++)
+      document.querySelector("#broccoli").innerHTML += `<li>${step}</li>`
+    }
+  } catch (error) {
+    document.querySelector("#broccoli").innerHTML += `<li>"Broccoli is ready!"</li>`
+  }
+}
+
+makeBroccoli()
 
 // Bonus 2 - Promise all
 // ...
