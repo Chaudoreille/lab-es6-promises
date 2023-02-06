@@ -28,17 +28,34 @@
 
 
 // Iteration 1 - using callbacks
-function recursivelyGetInstruction(i) {
-  getInstruction("mashedPotatoes", i, (step) => {
-    document.querySelector("#mashedPotatoes").innerHTML += `<li>${step}</li>`;
-    recursivelyGetInstruction(i+1)
-  }, (error) => document.querySelector("#mashedPotatoes").innerHTML += `<li>Mashed potatoes are ready!</li>`);
+function getMashedPotatoesInstructions() {
+  function recursivelyGetInstruction(i) {
+    getInstruction("mashedPotatoes", i, (step) => {
+      document.querySelector("#mashedPotatoes").innerHTML += `<li>${step}</li>`;
+      recursivelyGetInstruction(i+1)
+    }, (error) => document.querySelector("#mashedPotatoes").innerHTML += `<li>Mashed potatoes are ready!</li>`);
+  }
+  recursivelyGetInstruction(0)
 }
-recursivelyGetInstruction(0)
+
+getMashedPotatoesInstructions()
+
 
 
 // Iteration 2 - using promises
-// ...
+function getSteakInstructions() {
+  function recursivelyGetInstruction(i) {
+    obtainInstruction('steak', i)
+    .then((step) => {
+      document.querySelector("#steak").innerHTML += `<li>${step}</li>`
+      recursivelyGetInstruction(i+1)
+    })
+    .catch(error => document.querySelector("#steak").innerHTML += `<li>"Steak is ready!"</li>`)
+  }
+  recursivelyGetInstruction(0)
+}
+
+getSteakInstructions();
 
 // Iteration 3 using async/await
 // ...
