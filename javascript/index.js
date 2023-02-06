@@ -33,7 +33,10 @@ function getMashedPotatoesInstructions() {
     getInstruction("mashedPotatoes", i, (step) => {
       document.querySelector("#mashedPotatoes").innerHTML += `<li>${step}</li>`;
       recursivelyGetInstruction(i+1)
-    }, (error) => document.querySelector("#mashedPotatoes").innerHTML += `<li>Mashed potatoes are ready!</li>`);
+    }, (error) => {
+      document.querySelector("#mashedPotatoes").innerHTML += `<li>Mashed potatoes are ready!</li>`
+      document.querySelector("#steakImg").removeAttribute("hidden")
+    })
   }
   recursivelyGetInstruction(0)
 }
@@ -48,7 +51,10 @@ function getSteakInstructions() {
       document.querySelector("#steak").innerHTML += `<li>${step}</li>`
       recursivelyGetInstruction(i+1)
     })
-    .catch(error => document.querySelector("#steak").innerHTML += `<li>"Steak is ready!"</li>`)
+    .catch(error => {
+      document.querySelector("#steak").innerHTML += `<li>"Steak is ready!"</li>`
+      document.querySelector("#mashedPotatoesImg").removeAttribute("hidden")
+    })
   }
   recursivelyGetInstruction(0)
 }
@@ -65,6 +71,7 @@ async function makeBroccoli() {
     }
   } catch (error) {
     document.querySelector("#broccoli").innerHTML += `<li>"Broccoli is ready!"</li>`
+    document.querySelector("#broccoliImg").removeAttribute("hidden")
   }
 }
 
