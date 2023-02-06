@@ -78,4 +78,24 @@ async function makeBroccoli() {
 makeBroccoli()
 
 // Bonus 2 - Promise all
-// ...
+function makeBrusselSprouts() {
+  const instructionsLength = 8;
+  const promises = []
+
+  for (let i = 0; i < instructionsLength; i++) {
+    promises.push(obtainInstruction('brusselsSprouts', i))
+  }
+
+  Promise.all(promises)
+  .then(values => {
+    values.forEach(step => {
+      document.querySelector("#brusselsSprouts").innerHTML += `<li>${step}</li>`
+    })
+  })
+  .finally(() => {
+    document.querySelector("#brusselsSprouts").innerHTML += `<li>"Brussel Sprouts are ready!"</li>`
+    document.querySelector("#brusselsSproutsImg").removeAttribute("hidden")
+  })
+}
+
+makeBrusselSprouts()
