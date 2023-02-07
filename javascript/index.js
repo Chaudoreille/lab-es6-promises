@@ -95,7 +95,36 @@ function makeBrusselSprouts() {
   .finally(() => {
     document.querySelector("#brusselsSprouts").innerHTML += `<li>"Brussel Sprouts are ready!"</li>`
     document.querySelector("#brusselsSproutsImg").removeAttribute("hidden")
+    // console.timeEnd("promise all brussel sprouts")
+  })
+}
+// console.time("promise all brussel sprouts")
+makeBrusselSprouts()
+
+
+function batchBrusselSprouts(batchSize, startIndex) {
+  if (batchSize == 0) {
+    document.querySelector("#brusselsSprouts").innerHTML += `<li>"Brussel Sprouts are ready!"</li>`
+    document.querySelector("#brusselsSproutsImg").removeAttribute("hidden")
+    // console.timeEnd("batch Brussel Sprouts");
+    return
+  }
+  const promises = []
+  for (let i = startIndex; i < startIndex + batchSize; i++) {
+    promises.push(obtainInstruction('brusselsSprouts', i))
+  }
+
+  Promise.all(promises)
+  .then(values => {
+    values.forEach(step => {
+      document.querySelector("#brusselsSprouts").innerHTML += `<li>${step}</li>`
+    })
+    batchBrusselSprouts(batchSize, startIndex + batchSize)
+  })
+  .catch(error => {
+    batchBrusselSprouts(Math.floor(batchSize / 2), startIndex)
   })
 }
 
-makeBrusselSprouts()
+// console.time("batch Brussel Sprouts");
+// batchBrusselSprouts(5, 0);
